@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0fr9mxs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <bpmn:process id="camunda-engine-server-process" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1fp17al</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="StartEvent_1" targetRef="say-hello" />
+    <bpmn:userTask id="say-hello" name="Say hello to&#10;demo" camunda:asyncBefore="true" camunda:candidateUsers="demo">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="FormField_18rhc2r" label="What is your name?" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1fp17al</bpmn:incoming>
+      <bpmn:outgoing>Flow_05hltux</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_05hltux" sourceRef="say-hello" targetRef="Activity_14py3bz" />
+    <bpmn:serviceTask id="Activity_14py3bz" name="delegate service" camunda:asyncBefore="true" camunda:delegateExpression="${delegateService}">
+      <bpmn:incoming>Flow_05hltux</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ervy2h</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_1ihba7m">
+      <bpmn:incoming>Flow_0uvceit</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0ervy2h" sourceRef="Activity_14py3bz" targetRef="Activity_1r148y4" />
+    <bpmn:sequenceFlow id="Flow_0uvceit" sourceRef="Activity_1r148y4" targetRef="Event_1ihba7m" />
+    <bpmn:serviceTask id="Activity_1r148y4" name="external calc service" camunda:asyncBefore="true" camunda:type="external" camunda:topic="topic_calc">
+      <bpmn:incoming>Flow_0ervy2h</bpmn:incoming>
+      <bpmn:outgoing>Flow_0uvceit</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:boundaryEvent id="Event_0jj1f5o" name="errou" attachedToRef="Activity_1r148y4">
+      <bpmn:outgoing>Flow_0svvc80</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_0l5z8po" errorRef="Error_18p38ow" camunda:errorMessageVariable="CALC_ERROR" />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="Flow_0svvc80" sourceRef="Event_0jj1f5o" targetRef="Event_0w1iyz4" />
+    <bpmn:endEvent id="Event_0w1iyz4" name="deu ruim">
+      <bpmn:incoming>Flow_0svvc80</bpmn:incoming>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_1pg444p" errorRef="Error_18p38ow" />
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmn:error id="Error_18p38ow" name="CALC_ERROR" errorCode="CALC_ERROR" camunda:errorMessage="CALC_ERROR" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="camunda-engine-server-process">
+      <bpmndi:BPMNEdge id="SequenceFlow_1fp17al_di" bpmnElement="SequenceFlow_1fp17al">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05hltux_di" bpmnElement="Flow_05hltux">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="440" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ervy2h_di" bpmnElement="Flow_0ervy2h">
+        <di:waypoint x="540" y="117" />
+        <di:waypoint x="620" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0uvceit_di" bpmnElement="Flow_0uvceit">
+        <di:waypoint x="720" y="117" />
+        <di:waypoint x="772" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0svvc80_di" bpmnElement="Flow_0svvc80">
+        <di:waypoint x="660" y="175" />
+        <di:waypoint x="660" y="240" />
+        <di:waypoint x="732" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_08mft2c_di" bpmnElement="say-hello">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_07g5tiz_di" bpmnElement="Activity_14py3bz">
+        <dc:Bounds x="440" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ihba7m_di" bpmnElement="Event_1ihba7m">
+        <dc:Bounds x="772" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0qrdl8f_di" bpmnElement="Activity_1r148y4">
+        <dc:Bounds x="620" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1tj0ebx_di" bpmnElement="Event_0w1iyz4">
+        <dc:Bounds x="732" y="222" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="729" y="265" width="43" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1snrq35_di" bpmnElement="Event_0jj1f5o">
+        <dc:Bounds x="642" y="139" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="648" y="182" width="26" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
