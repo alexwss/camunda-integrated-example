@@ -5,7 +5,7 @@
       <bpmn:outgoing>SequenceFlow_1fp17al</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="StartEvent_1" targetRef="say-hello" />
-    <bpmn:userTask id="say-hello" name="Say hello to&#10;demo" camunda:asyncBefore="true" camunda:candidateUsers="demo">
+    <bpmn:userTask id="say-hello" name="Say hello to&#10;demo" camunda:asyncBefore="true" camunda:assignee="demo" camunda:candidateUsers="demo">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="FormField_18rhc2r" label="What is your name?" type="string" />
@@ -28,12 +28,12 @@
       <bpmn:incoming>Flow_0ervy2h</bpmn:incoming>
       <bpmn:outgoing>Flow_0uvceit</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:boundaryEvent id="Event_0jj1f5o" name="errou" attachedToRef="Activity_1r148y4">
+    <bpmn:boundaryEvent id="Event_0jj1f5o" name="CALC_ERROR" camunda:asyncBefore="true" attachedToRef="Activity_1r148y4">
       <bpmn:outgoing>Flow_0svvc80</bpmn:outgoing>
-      <bpmn:errorEventDefinition id="ErrorEventDefinition_0l5z8po" errorRef="Error_18p38ow" camunda:errorMessageVariable="CALC_ERROR" />
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_0l5z8po" errorRef="Error_18p38ow" camunda:errorCodeVariable="CALC_ERROR" camunda:errorMessageVariable="CALC_ERROR" />
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_0svvc80" sourceRef="Event_0jj1f5o" targetRef="Event_0w1iyz4" />
-    <bpmn:endEvent id="Event_0w1iyz4" name="deu ruim">
+    <bpmn:endEvent id="Event_0w1iyz4" name="CALC_ERROR">
       <bpmn:incoming>Flow_0svvc80</bpmn:incoming>
       <bpmn:errorEventDefinition id="ErrorEventDefinition_1pg444p" errorRef="Error_18p38ow" />
     </bpmn:endEvent>
@@ -41,26 +41,26 @@
   <bpmn:error id="Error_18p38ow" name="CALC_ERROR" errorCode="CALC_ERROR" camunda:errorMessage="CALC_ERROR" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="camunda-engine-server-process">
-      <bpmndi:BPMNEdge id="SequenceFlow_1fp17al_di" bpmnElement="SequenceFlow_1fp17al">
-        <di:waypoint x="215" y="117" />
-        <di:waypoint x="270" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_05hltux_di" bpmnElement="Flow_05hltux">
-        <di:waypoint x="370" y="117" />
-        <di:waypoint x="440" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0ervy2h_di" bpmnElement="Flow_0ervy2h">
-        <di:waypoint x="540" y="117" />
-        <di:waypoint x="620" y="117" />
+      <bpmndi:BPMNEdge id="Flow_0svvc80_di" bpmnElement="Flow_0svvc80">
+        <di:waypoint x="660" y="175" />
+        <di:waypoint x="660" y="220" />
+        <di:waypoint x="772" y="220" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0uvceit_di" bpmnElement="Flow_0uvceit">
         <di:waypoint x="720" y="117" />
         <di:waypoint x="772" y="117" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0svvc80_di" bpmnElement="Flow_0svvc80">
-        <di:waypoint x="660" y="175" />
-        <di:waypoint x="660" y="240" />
-        <di:waypoint x="732" y="240" />
+      <bpmndi:BPMNEdge id="Flow_0ervy2h_di" bpmnElement="Flow_0ervy2h">
+        <di:waypoint x="540" y="117" />
+        <di:waypoint x="620" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05hltux_di" bpmnElement="Flow_05hltux">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="440" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fp17al_di" bpmnElement="SequenceFlow_1fp17al">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="99" width="36" height="36" />
@@ -78,15 +78,15 @@
         <dc:Bounds x="620" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1tj0ebx_di" bpmnElement="Event_0w1iyz4">
-        <dc:Bounds x="732" y="222" width="36" height="36" />
+        <dc:Bounds x="772" y="202" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="729" y="265" width="43" height="14" />
+          <dc:Bounds x="753" y="245" width="77" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1snrq35_di" bpmnElement="Event_0jj1f5o">
         <dc:Bounds x="642" y="139" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="648" y="182" width="26" height="14" />
+          <dc:Bounds x="671" y="203" width="77" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>

@@ -11,6 +11,8 @@ public class CalcHandler implements ExternalTaskHandler {
     @Override
     public void execute(ExternalTask externalTask, ExternalTaskService externalTaskService) {
 
+        System.out.println("handler... ");
+
         externalTaskService.handleBpmnError(externalTask, "CALC_ERROR", "CALC_ERROR");
     }
 
