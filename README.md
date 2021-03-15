@@ -8,7 +8,7 @@ an external service client.
 Here I'm using Spring Boot with Camunda.
 
 If you want to contact me,
-send me a messagem to: alexwssilva@gmail.com
+send me a message to: alexwssilva@gmail.com
 
 Regards,
 Alex Santos.
